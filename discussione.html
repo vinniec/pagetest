@@ -1,0 +1,108 @@
+
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>.selezione{border-bottom: 1px dashed black;}</style></head><body></body></html>
+
+<script>
+"use scrict"; //per poter usare let
+
+//vocabolario parsato e inserito con python
+let frasi = {"0": "Un altro metodo di parsing potrebbe essere $[0.1] $[0.33] dovrei capire come metterlo in atto. L'idea di come scriverlo pi\u00f9 o meno ci sarebbe ma poi come parlarlo non ne sono molto convinto. Ceto cos\u00ec potrei avere molta pi\u00f9 libert\u00e0 di scrittura che in fondo \u00e8 quello che cerco di avere.", "0.1": "un modo diverso $[1.4]", "0.33": "per\u00f2", "1": "questo, accorciare invece che allungare, oppure allungare invece che accorciare,", "1.4": "yeah", "4": "_", "33": "di consentire passaggi diversi. Comunque volendo parlare in modo pi\u00f9 generico possibile della storia dell'umanita volendo per l'appunto $[33.3] in modo tremendo direi che sarebbe da tenere in considerazione l'angolatura di marte.", "33.3": "divagare", "3": "divagare (cosa che mi riesce sempre benissimo)"}
+
+
+let ds_click = function(f1, f2, DELAY, elem){
+//discerne il singolo dal doppio click su un elemento avviando f1 o f2
+    elem = typeof(elem) === 'undefined' ? document : elem;
+    DELAY = typeof(DELAY) === 'undefined' ? 500 : DELAY;
+
+    let clicks = 0;
+    let timer = null;
+
+    elem.addEventListener("click", function(e){
+        clicks++;
+
+        if(clicks === 1) {
+            timer = setTimeout(function() {
+                f1(e, "single");
+                clicks = 0;
+            }, DELAY);
+
+        } else {
+            clearTimeout(timer);
+            f2(e, "double");
+            clicks = 0;
+        }
+
+    })
+    .addEventListener("dblclick", function(e){
+        e.preventDefault();
+    });
+};
+
+let undue_click = function(event, type){
+  if (  (type === "single" && event.target.className === "selezione" && event.target.dataset['fase'] === "orig")
+     || (type === "double" && event.target.className === "frase" && event.target.dataset['fase'] === "dest")) {
+    let orig = event.target.dataset['orig'];
+    let elem = document.body.querySelector(`span [data-orig='${orig}']`)
+    let dest = elem.getAttribute('data-dest');
+    if (dest !== 'undefined'){
+      sost_sez(elem);
+};};};
+
+// regex che matcha i segnaposto $[n.n] o $[n] e restituisce n.n in tre gruppi
+let re_indice = /\$\[(\d+)(?:(\.)(\d+))?\]/;
+let sost_sez = function (el_frase){
+//restituisce un elemento span con attributi corretti e contenuto opportunamente sostituito
+  if (! isNaN(el_frase)) {
+  //se l'argomento è un intero lo trasformo in uno span contente la frase relativa
+    let indice = String(el_frase);
+    let classe = el_frase.includes('.') ? 'selezione' : 'frase';
+    el_frase = document.createElement('span');
+    el_frase.classList.add(classe);
+    el_frase.setAttribute('data-orig', indice);
+    el_frase.innerHTML = frasi[indice];
+  }
+  else {
+  //se è già un elemento invece sostituisco il contenuto e cambio i suoi parametri
+    let inver = { 'orig' : 'dest', 'dest' : 'orig', 'selezione' : 'frase', 'frase' : 'selezione' };
+    let direz = inver[el_frase.getAttribute('data-fase')];
+    let indic = el_frase.getAttribute(`data-${direz}`);
+    let classe = inver[el_frase.getAttribute('class')];
+    el_frase.innerHTML = frasi[indic];
+    el_frase.setAttribute('data-fase', direz);
+    el_frase.className = classe;
+  };
+
+  let match;
+  while (match = el_frase.innerHTML.match(re_indice)) {
+  //sostituisco i segnaposto $[] nell'html dell'elemento
+    let id_ori = match.slice(1,4).join('');
+    let id_des = match[3];
+    let sostit = `<span class="selezione" data-orig="${id_ori}" data-dest="${id_des}" data-fase="orig">${frasi[id_ori]}</span>`;
+    el_frase.innerHTML = el_frase.innerHTML.replace(`$[${id_ori}]`, sostit);
+  };
+
+  return el_frase;
+};
+
+//funzione che controlla se il documento è pronto
+function ready(fn) {
+  if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+let esecuzione = function() {
+//il mio main, creo un div, ci metto dentro uno span e avvio l'evento delle sostituzioni
+  let div_discorso = document.createElement('div');
+  div_discorso.classList.add('discorso');
+  document.body.appendChild(div_discorso);
+  let prima_frase = String(Math.min.apply(null, Object.keys(frasi)));
+  let primo_span = sost_sez(prima_frase);
+  div_discorso.appendChild(primo_span);
+  ds_click(undue_click, undue_click, 200);
+};
+
+ready(esecuzione()); //avvio il mio main
+
+</script>

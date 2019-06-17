@@ -5,7 +5,7 @@
 "use scrict"; //per poter usare let
 
 //vocabolario parsato e inserito con python
-let frasi = {"0": "Un altro metodo di parsing potrebbe essere $[0.1] $[0.33] dovrei capire come metterlo in atto. L'idea di come scriverlo pi\u00f9 o meno ci sarebbe ma poi come parlarlo non ne sono molto convinto. Ceto cos\u00ec potrei avere molta pi\u00f9 libert\u00e0 di scrittura che in fondo \u00e8 quello che cerco di avere.", "0.1": "un modo diverso $[1.4]", "0.33": "per\u00f2", "1": "questo, accorciare invece che allungare, oppure allungare invece che accorciare,", "1.4": "yeah", "4": "_", "33": "di consentire passaggi diversi. Comunque volendo parlare in modo pi\u00f9 generico possibile della storia dell'umanita volendo per l'appunto $[33.3] in modo tremendo direi che sarebbe da tenere in considerazione l'angolatura di marte.", "33.3": "divagare", "3": "divagare (cosa che mi riesce sempre benissimo)"}
+let capitoli = {"1": {"0": "$[0.1]", "0.1": "\"Do you want to go out with me?\"", "1": "\"Do you want to go out with me?\": this is the fundamental part, but are you $[1.2]<wbr>", "1.2": "curious to know the rest of my thinking?", "2": "curious to know the rest of my thinking?<br>$[2.3]$[2.c2]", "2.3": "So, please feel free to criticize me and l", "2.c2": "et's start.", "3": "Ok, I'm trying a little things now, I ask you to have a spontaneous reaction because it will help me understand who we are, so don't be afraid to warn me if something do not like you, I am not perfect!<br>L"}, "2": {"0": "$[0.1]<wbr>$[0.2]<br><br>$[0.3]<wbr>$[0.4]<wbr>$[0.5]<br><br>$[0.6]<wbr>$[0.7]<wbr>$[0.8]<br><br>$[0.c3]", "0.1": "I worry a bit about what you think of me", "0.2": ", however I'd like to understand if you want to know my way of being.", "0.3": "Everytime I want to ask you to do something together", "0.4": ", because I love this idea", "0.5": ", but for me is difficult because I haven't yet figured out what you really prefer.", "0.6": "This is an attempt to let you know my strange behaviour", "0.7": ", something to create connection and comprehension betwneen us", "0.8": " and because I am fascinated by your thoughts.", "0.c3": "In conclusion", "1": "Currently my way of relating to our existence is very cerebral, I think a lot about what I would like to say, what I would like to do, how to make my presence more pleasant in front of you and most of the time, at the end I keep quiet because I don't know how you could take what I want to say", "2": ".<br>Now I wonder, do you like to hear the flow of my reason or would you prefer to ear just the results more directly?<br>Right now, with this message, of course I'm using the first way, I'm involving you in the reason of my questions.<br>My desire is to find the best way to communicate with you, the way that makes more confortable for you listening to me, I'm already taking into consideration that you told me that you have no problem reading what I write, but I would like you to explore well your nature in search of what you want, what you like.", "3": "Continuing to adopt the first more cerebral way of communication, the one that shares the details of my thought, $[3.9] come to me because I wanted to ask you to share some time together again.<br>Rationally I wanted to explain that I understand you currently have many things forced to do alone and so I wanted to ask you (or repeat) if there was something that we could do together that you can do in company", "3.9": "this idea", "4": ".<br>I thought that we are distant 15 minutes walking and that I spent all my childhood to reach friends who lived also much more afar and then for me it is almost non-existent distance compared with the joy to see you", "5": ".<br>But at the end I don't know, maybe all these thoughts bore you, maybe you just want me to ask directly \"let's eat together\" or \"want to go for a run?\" or \"want to dance with me?\" (<-- XD). I have to confess that sometimes I also have these instinctive impulses without long reflections but I don't tell you so often because I'm afraid of collecting too many \"no\" by making improvvise proposals that don't fit in you agenda and saying \"no\" sometimes is unpleasant and people run away from unpleasant situations.", "6": "This time I write to you so much and so deeply just to show you something about me, the \"something\" that slows down my answers and sometimes makes my conclusions extravagant because others do not understand why I speak or act in a certain way", "7": ".<br>I always had a lot of time to think P., but over the years I've increasingly the desire to start listening the ideas of others because I was bored talking only to myself (as I'm doing now in some sense)", "8": ".<br>So take this as an attempt to understand if you like my way of being, I can not be sure that you do not like it (as many of the people I know), after all the messages you sent last time surprised me and I need to read them again and again to understand as much as possible what you wanted to say, those messages tell me clearly that you are capable of a vertiginous introspection and that I would love to be able to look into those thoughts if I had the chance.", "9": "the idea of ask you what you want to know about my expressions"}, "3": {"0": "$[0.1]<br><br>$[0.3]", "0.1": "Ciao P.", "0.3": "P.s.", "1": "Excuse me this time if I have been long, I assure you that I am doing it for a good purpose, ciao $[1.2]<wbr>", "1.2": "P.", "2": "mia cara P. :D", "3": "P.s. I don't send you this message immediately for two fundamental reasons, I want to send it to you when you are awake so that you don't worry about my health (although every time your attentions makes me feel good) and I still have to translate it (unfortunately my mother tongue is Italian and I can't think fluently enough in another language without blocking my thoughts).<br>$[3.4]<wbr>", "3.4": "P.p.s.", "4": "P.p.s don't hate me for this but today... no wait, this time I avoid and censor myself, next time! :D This is one of the moments when I need to be weird, sorry bizarre time needed! <a href=\"https://www.youtube.com/watch?v=hgee3IGYZsU\">It's a mystery!</a><br>$[4.5]<wbr>", "4.5": "P.p.p.s", "5": "P.p.p.s For honour also the second style of comunication, we can reassume all this message with only $[5.c1] , I'm very interested to see your reaction!", "5.c1": "one"}}
 
 
 let ds_click = function(f1, f2, DELAY, elem){
@@ -38,17 +38,47 @@ let ds_click = function(f1, f2, DELAY, elem){
 };
 
 let undue_click = function(event, type){
-  if (  (type === "single" && event.target.className === "selezione" && event.target.dataset['fase'] === "orig")
-     || (type === "double" && event.target.className === "frase" && event.target.dataset['fase'] === "dest")) {
+//entra nei casi di singolo clic su selezioni o doppio clic su selezioni e frasi
+  if (  (event.target.className === "selezione" && event.target.dataset['fase'] === "orig")
+     || (event.target.className === "frase" && event.target.dataset['fase'] === "dest" && type === "double")) {
     let orig = event.target.dataset['orig'];
     let elem = document.body.querySelector(`span [data-orig='${orig}']`)
     let dest = elem.getAttribute('data-dest');
     if (dest !== 'undefined'){
-      sost_sez(elem);
-};};};
+        if (dest.includes('c')) {
+            apri_cap(dest.slice(1));
+        } else {
+            if ( event.target.className === "selezione" && type === "double") {
+            //doppio click su selezione (su link), riprende il precedente elemento
+                let elem2 = elem.parentNode;
+                fase2 = elem2.getAttribute('data-fase')
+                if (fase2 === null) {
+                    //se la selezione non ha un parente non fa nulla al dbclick
+                    return;
+                }
+                    elem = elem2;
+            }
+            sost_sez(elem);
+}}}};
+
+
+let apri_cap = function(cap, fra) {
+  //sostituisce il capitolo attualmente visualizzato
+  //valori di default a cap (primo indice del diz capitoli) e fra (0 presunto)
+  cap = typeof(cap) === 'undefined' ? Object.keys(capitoli)[0] : cap;
+  fra = typeof(fra) === 'undefined' ? '0' : fra;
+  window.frasi = capitoli[cap]  //frasi var globale prende il dizionario di un cap
+  document.body.innerHTML = ""                       //svuoto il body
+  let div_discorso = document.createElement('div');  //creo un elemento div
+  div_discorso.classList.add('discorso');            //gli do la classe discorso
+  document.body.appendChild(div_discorso);           //lo inserisco dentro il body
+  let primo_span = sost_sez(fra)                     //creo uno span con la 1a frase
+  div_discorso.appendChild(primo_span);              //la inserisco nel div
+};
+
 
 // regex che matcha i segnaposto $[n.n] o $[n] e restituisce n.n in tre gruppi
-let re_indice = /\$\[(\d+)(?:(\.)(\d+))?\]/;
+let re_indice = /\$\[(\d+)(?:(\.)(c?\d+))?\]/;
 let sost_sez = function (el_frase){
 //restituisce un elemento span con attributi corretti e contenuto opportunamente sostituito
   if (! isNaN(el_frase)) {
@@ -94,12 +124,7 @@ function ready(fn) {
 
 let esecuzione = function() {
 //il mio main, creo un div, ci metto dentro uno span e avvio l'evento delle sostituzioni
-  let div_discorso = document.createElement('div');
-  div_discorso.classList.add('discorso');
-  document.body.appendChild(div_discorso);
-  let prima_frase = String(Math.min.apply(null, Object.keys(frasi)));
-  let primo_span = sost_sez(prima_frase);
-  div_discorso.appendChild(primo_span);
+  apri_cap()
   ds_click(undue_click, undue_click, 200);
 };
 
